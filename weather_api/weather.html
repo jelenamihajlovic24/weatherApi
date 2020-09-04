@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Weather Api</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+</style>
+<body class="w3-light-grey">
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+  <a href="#" class="w3-bar-item w3-button w3-text-blue w3-hover-blue"><b><i class="fa fa-cloud w3-margin-right"></i>Weather Travel</b></a>
+  <a href="#" class="w3-bar-item w3-button w3-right w3-hover-blue w3-text-grey"><i class="fa fa-search"></i></a>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+  <img class="w3-image" src="img/clouds_bcg.jpg" alt="Clouds" width="1500" height="700">
+  <div class="w3-display-middle" style="width:65%">
+    <div class="w3-bar w3-dark-gray">
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Location');"><i class="fa fa-map-marker w3-margin-right"></i>Location</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Forecast');"><i class="fa fa-cloud w3-margin-right"></i>Forecast</button>
+    </div>
+
+    <!-- Tabs -->
+    <form action="#" method="GET">
+            <div id="Location" class="w3-container w3-white w3-padding-16 myLink">
+            <h3>Find out the weather forcast with us</h3>
+              <div class="w3-row-padding" style="margin:0 -16px;">
+                  <div class="w3-half">
+                    <label>Enter adress of current location</label>
+                    <input class="w3-input w3-border" type="text" placeholder="Departing from">
+                      <div class="w3-row-padding w3-half" style="padding: 15px;">
+                        <button onclick="getLocation()" type="submit" class="w3-button w3-blue focus w3-left">Find the location</button>
+                      </div>
+                      <div class="w3-half">
+                        <p id="geolocation"></p>
+                      </div>
+                  </div>
+                  <div class="w3-half">
+                    <label>Enter adress of your destination</label>
+                    <input class="w3-input w3-border" type="text" placeholder="Destination">
+                      <div class="w3-row-padding w3-half" style="padding: 15px;">
+                        <button onclick="getLocation()" type="submit" class="w3-button w3-blue focus w3-left">Find the location</button>
+                      </div>
+                      <div class="w3-half">
+                        <p id=""></p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+    </form>
+
+    <div id="Forecast" class="w3-container w3-white w3-padding-16 myLink">
+      <h3>The weather forcast</h3>
+      <div class="card-deck">
+        <div class="card departure" style="background-color: #cfe8fc;">
+          <div class="card-body">
+            <h4 class="card-text">Departure weather</h4>
+            <p></p>
+            <p class="card-text">Dew point: </p>
+            <p class="card-text">Humidity: </p>
+            <p class="card-text">Temperature: </p>
+          </div>
+        </div>
+        <div class="card destination"style="background-color: #cfe8fc;">
+          <div class="card-body">
+            <h4 class="card-text">Destination weather</h4>
+            <p></p>
+            <p class="card-text">Dew point: </p>
+            <p class="card-text">Humidity: </p>
+            <p class="card-text">Temperature: </p>
+          </div>
+        </div> 
+      </div>
+    </div>
+    
+  </div>
+</header>
+
+<!-- Footer -->
+<footer class="w3-container w3-center w3-opacity w3-margin-bottom">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="#" target="_blank" class="w3-hover-text-green">Peci</a></p>
+</footer>
+
+<script>
+// Tabs
+function openLink(evt, linkName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("myLink");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(linkName).style.display = "block";
+  evt.currentTarget.className += " w3-blue";
+}
+
+// Click on the first tablink on load
+document.getElementsByClassName("tablink")[0].click();
+</script>
+
+<script>
+//Geolocation
+var x = document.getElementById("geolocation");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+</body>
+</html>
